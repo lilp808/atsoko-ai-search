@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins, Prompt } from "next/font/google";
+import { cookies } from "next/headers";
+import LogoutButton from "@/components/LogoutButton";
+import { AUTH_COOKIE, isValidAuthCookie } from "@/lib/auth";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -19,10 +22,17 @@ export const metadata: Metadata = {
   description: "พิมพ์ภาษาธรรมชาติ แล้วให้ AI แปลงเป็นฟิลเตอร์ค้นหา",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const authed = await isValidAuthCookie(
+    cookies().get(AUTH_COOKIE)?.value,
+    process.env.DEMO_PASSWORD,
+  );
   return (
     <html lang="th" className={`${poppins.variable} ${prompt.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        {authed && <LogoutButton />}
+      </body>
     </html>
   );
 }
