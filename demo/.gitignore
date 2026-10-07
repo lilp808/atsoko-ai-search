@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+dev-start.log
+*.log
+# never commit real keys — use .env.local.example as template,
+# real values live in local .env* (ignored) and Vercel dashboard
+.env
+.env.local
+.env.*.local
+!.env.local.example

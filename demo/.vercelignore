@@ -1,0 +1,4 @@
+# never deploy real keys — set them in Vercel dashboard instead
+.env
+.env.local
+.env.*.local
